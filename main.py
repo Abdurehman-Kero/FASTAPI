@@ -26,7 +26,9 @@ class Item(BaseModel):
     is_offer: bool = False  # This is optional, defaults to False
 @app.post("/items/")
 def create_item(item: Item):
+    total_price = item.price + item.tax
     return {
         "message": f"Item '{item.name}' created successfully!",
-        "item_details": item
+        "item_details": item,
+        "total_with_tax": total_price
     }
