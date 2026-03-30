@@ -10,3 +10,9 @@ def read_root():
 @app.get("/items/{item_id}")
 def read_item(item_id: int):
     return {"item_id": item_id, "message": f"You are looking at item number {item_id}"}
+@app.get("/users/")
+def get_user_info(name: str, age: int):
+    return {
+        "message": f"Hello {name}!",
+        "age_next_year": age + 1
+    }
