@@ -54,14 +54,24 @@ def get_specific_item(index: int):
     else:
         # 3. If the user asks for item #99 but we only have 2
         return {"error": "Item not found. Your list isn't that long yet!"}
-    @app.put("/items/update/{index}")
-    def update_item(index: int, updated_item: Item):
-        if index < len(my_database) and index >= 0:
-            my_database[index] = updated_item
-            return {
+@app.put("/items/update/{index}")
+def update_item(index: int, updated_item: Item):
+  if index < len(my_database) and index >= 0:
+     my_database[index] = updated_item
+     return{
                 "message": f"Item at index {index} updated successfully!",
                 "updated_item": updated_item
-            }
-        else:
-            return {"error": "Item not found. Your list isn't that long yet!"}  
-      
+         }
+  else:
+   return {"error": "Item not found. Your list isn't that long yet!"}  
+
+@app.delete("/items/delete/{index}")
+def delete_item(index: int):
+    if index < len(my_database) and index >= 0:
+                deleted_item = my_database.pop(index)
+                return {
+                    "message": f"Item at index {index} deleted successfully!",
+                    "deleted_item": deleted_item
+                }
+    else:
+                return {"error": "Item not found. Your list isn't that long yet!"}
