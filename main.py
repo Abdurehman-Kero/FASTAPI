@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-
+from pydantic import BaseModel
 # 1. Create the "app" instance
 app = FastAPI()
 
@@ -15,4 +15,15 @@ def get_user_info(name: str, age: int):
     return {
         "message": f"Hello {name}!",
         "age_next_year": age + 1
+    }
+# This is your "Template" or Blueprint
+class Item(BaseModel):
+    name: str
+    price: float
+    is_offer: bool = False  # This is optional, defaults to False
+@app.post("/items/")
+def create_item(item: Item):
+    return {
+        "message": f"Item '{item.name}' created successfully!",
+        "item_details": item
     }
