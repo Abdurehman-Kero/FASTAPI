@@ -41,3 +41,16 @@ def create_item(item: Item):
 @app.get("/all-items/")
 def get_all_items():
     return {"all_items": my_database}
+
+@app.get("/items/find/{index}")
+def get_specific_item(index: int):
+    # 1. Check if the index is valid (not too high, not negative)
+    if index < len(my_database) and index >= 0:
+        # 2. Return the item at that position
+        return {
+            "item_found": my_database[index],
+            "position": index
+        }
+    else:
+        # 3. If the user asks for item #99 but we only have 2
+        return {"error": "Item not found. Your list isn't that long yet!"}
